@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Chinnu</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pacifico', cursive;
+      background: #1e3c72;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: #ffebcd;
+      text-shadow: 2px 2px 6px black;
+      margin-bottom: 60px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .cake {
+      position: relative;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .layer {
+      width: 180px;
+      height: 60px;
+      background: #ffb6c1;
+      border-radius: 10px;
+      border: 3px solid #fff;
+    }
+
+    .middle {
+      width: 140px;
+      margin-top: -20px;
+    }
+
+    .top {
+      width: 100px;
+      margin-top: -20px;
+    }
+
+    .candles {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: -20px;
+      margin-bottom: 10px;
+    }
+
+    .candle {
+      width: 12px;
+      height: 30px;
+      background: white;
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .flame {
+      width: 10px;
+      height: 15px;
+      background: orange;
+      border-radius: 50%;
+      position: absolute;
+      top: -15px;
+      left: 1px;
+      animation: flicker 0.3s infinite alternate;
+    }
+
+    @keyframes flicker {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.2); opacity: 0.7; }
+    }
+
+    .numbers {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .number {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: white;
+      color: #1e3c72;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 5px rgba(0,0,0,0.6);
+      pointer-events: auto;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 40px;
+      height: 55px;
+      border-radius: 50%;
+      animation: floatUp linear infinite;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      width: 2px;
+      height: 40px;
+      background: black;
+      transform: translateX(-50%);
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-120vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy Birthday Chinnu 🎉</h1>
+
+  <div class="cake">
+    <div class="candles">
+      <div class="candle"><div class="flame"></div></div>
+      <div class="candle"><div class="flame"></div></div>
+    </div>
+    <div class="layer top"></div>
+    <div class="layer middle"></div>
+    <div class="layer bottom"></div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div class="numbers" id="numbers"></div>
+  <div id="balloons"></div>
+
+  <!-- Music -->
+  <audio id="bg-music" loop muted>
+    <source src="surprise.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Birthday messages for each number
+    const messages = {
+      1: "You're the sweetest person I know 💖",
+      2: "May your smile never fade 😊",
+      3: "You're my biggest blessing ✨",
+      4: "Wishing you endless happiness 🌸",
+      5: "Forever my special one ❤️",
+      6: "May all your dreams come true 🎯",
+      7: "You make life beautiful 🌹",
+      8: "I'm lucky to have you 💕",
+      9: "Stay happy always 😘",
+      10: "You light up my world 🌟",
+      11: "You're truly unforgettable 💌",
+      12: "My best friend forever 🤗",
+      13: "You're stronger than you think 💪",
+      14: "Keep shining bright 🔥",
+      15: "Happy Birthday, Angel 👑",
+      16: "You're precious 💎",
+      17: "To more memories together 🥰",
+      18: "Love you endlessly 💖",
+      19: "You bring joy to everyone around you 🌈"
+    };
+
+    // Numbers placement
+    const numbersContainer = document.getElementById('numbers');
+    const totalNumbers = 19;
+    const radius = 180;
+
+    for (let i = 1; i <= totalNumbers; i++) {
+      const angle = (i / totalNumbers) * 2 * Math.PI;
+      const x = radius * Math.cos(angle);
+      const y = radius * Math.sin(angle);
+      const number = document.createElement('div');
+      number.className = 'number';
+      number.textContent = i;
+      number.style.left = `${200 + x - 20}px`;
+      number.style.top = `${200 + y - 20}px`;
+
+      // Display message for each number
+      number.onclick = () => alert(messages[i] || "Have a great day!"); 
+      numbersContainer.appendChild(number);
+    }
+
+    // Balloons
+    const balloonColors = ["red","blue","green","purple","yellow","pink","orange"];
+    const balloons = document.getElementById("balloons");
+    function createBalloon() {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+      balloon.style.left = Math.random() * window.innerWidth + "px";
+      balloon.style.background = balloonColors[Math.floor(Math.random()*balloonColors.length)];
+      balloon.style.animationDuration = (5 + Math.random()*5) + "s";
+      balloons.appendChild(balloon);
+      setTimeout(()=> balloon.remove(), 10000);
+    }
+    setInterval(createBalloon, 700);
+
+    // True autoplay workaround for music
+    const bgMusic = document.getElementById('bg-music');
+    window.addEventListener('load', () => {
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            bgMusic.muted = false; // Unmute after successful autoplay
+          })
+          .catch(() => {
+            // If autoplay blocked, play on first click
+            document.body.addEventListener('click', () => {
+              bgMusic.play();
+              bgMusic.muted = false;
+            }, { once: true });
+          });
+      }
+    });
+  </script>
+</body>
+</html>

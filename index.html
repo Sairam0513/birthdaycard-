@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Chinnu ❤</title>
+  <!-- Google Font for cursive -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Happiest Birthday <span class="name">Nanna ❤......</span></h1>
+    
+    <!-- Floating hearts -->
+    <div class="hearts" id="hearts"></div>
+    
+    <!-- Gift box button -->
+    <button class="gift-btn" id="giftBtn">
+      <img src="giftbox.png" alt="Gift Box">
+    </button>
+    <p class="tap-text">Tap me to see the surprise</p>
+
+    <!-- Sound effect -->
+    <audio id="popSound" src="sparkle.mp3" preload="auto"></audio>
+
+    <!-- Background music -->
+    <audio id="bgMusic" src="bgm.mp3" loop muted></audio>
+  </div>
+  
+  <script src="index.js"></script>
+  <script>
+    // Autoplay background music
+    const bgMusic = document.getElementById("bgMusic");
+
+    window.addEventListener("load", () => {
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            bgMusic.muted = false; // unmute after successful autoplay
+          })
+          .catch(() => {
+            // Fallback: play on first interaction
+            document.body.addEventListener("click", () => {
+              bgMusic.play();
+              bgMusic.muted = false;
+            }, { once: true });
+          });
+      }
+    });
+  </script>
+</body>
+</html>
